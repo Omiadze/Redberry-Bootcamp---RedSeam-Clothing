@@ -1,62 +1,62 @@
- /* src/index.css */
- @import "tailwindcss";
 
-:root {
-  --primary: 24 100% 50%; /* Orange */
-  --primary-foreground: 0 0% 100%; /* White text */
-}
-
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+@tailwind utilities;
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --background: 208 58% 99%;
+    --foreground: 208 63% 1%;
+    --muted: 178 21% 87%;
+    --muted-foreground: 178 8% 31%;
+    --popover: 208 58% 98%;
+    --popover-foreground: 0 0% 0%;
+    --card: 208 58% 98%;
+    --card-foreground: 0 0% 0%;
+    --border: 208 5% 94%;
+    --input: 208 5% 94%;
+    --primary: 208 64% 78%;
+    --primary-foreground: 208 64% 18%;
+    --secondary: 178 64% 78%;
+    --secondary-foreground: 178 64% 18%;
+    --accent: 238 64% 78%;
+    --accent-foreground: 238 64% 18%;
+    --destructive: 2 82% 25%;
+    --destructive-foreground: 2 82% 85%;
+    --ring: 208 64% 78%;
+    --chart-1: 208 64% 78%;
+    --chart-2: 178 64% 78%;
+    --chart-3: 238 64% 78%;
+    --chart-4: 178 64% 81%;
+    --chart-5: 208 67% 78%;
+    --radius: 0.5rem;
   }
-  a:hover {
-    color: #747bff;
+  .dark {
+    --background: 208 38% 1%;
+    --foreground: 208 30% 100%;
+    --muted: 178 21% 13%;
+    --muted-foreground: 178 8% 69%;
+    --popover: 208 38% 2%;
+    --popover-foreground: 0 0% 100%;
+    --card: 208 38% 2%;
+    --card-foreground: 0 0% 100%;
+    --border: 208 5% 10%;
+    --input: 208 5% 10%;
+    --primary: 208 64% 78%;
+    --primary-foreground: 208 64% 18%;
+    --secondary: 178 64% 78%;
+    --secondary-foreground: 178 64% 18%;
+    --accent: 238 64% 78%;
+    --accent-foreground: 238 64% 18%;
+    --destructive: 2 82% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 208 64% 78%;
+    --chart-1: 208 64% 78%;
+    --chart-2: 178 64% 78%;
+    --chart-3: 238 64% 78%;
+    --chart-4: 178 64% 81%;
+    --chart-5: 208 67% 78%;
   }
-  button {
-    background-color: #f9f9f9;
+}
+@layer base {
+  body {
+    @apply bg-background text-foreground;
   }
 }

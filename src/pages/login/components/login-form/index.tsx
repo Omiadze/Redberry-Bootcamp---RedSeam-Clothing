@@ -54,60 +54,67 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <Form
-      onFinish={handleSubmit(onSubmit)}
-      layout="vertical"
-      className="max-w-md mx-auto space-y-4"
-    >
-      {isError && (
-        <Alert
-          message={(error as Error)?.message || "Login failed"}
-          type="error"
-          showIcon
-        />
-      )}
-
-      <Form.Item
-        label="Email"
-        validateStatus={errors.email ? "error" : ""}
-        help={errors.email?.message}
+    <div>
+      <Form
+        onFinish={handleSubmit(onSubmit)}
+        layout="vertical"
+        className="max-w-md mx-auto space-y-4"
       >
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <Input placeholder="Enter your email" {...field} />
-          )}
-        />
-      </Form.Item>
+        {isError && (
+          <Alert
+            message={(error as Error)?.message || "Login failed"}
+            type="error"
+            showIcon
+          />
+        )}
 
-      <Form.Item
-        label="Password"
-        validateStatus={errors.password ? "error" : ""}
-        help={errors.password?.message}
-      >
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => (
-            <Input.Password placeholder="Enter your password" {...field} />
-          )}
-        />
-      </Form.Item>
+        <Form.Item
+          label="Email"
+          validateStatus={errors.email ? "error" : ""}
+          help={errors.email?.message}
+        >
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <Input placeholder="Enter your email" {...field} />
+            )}
+          />
+        </Form.Item>
 
-      <Form.Item>
-        <Button className="" type="primary" htmlType="submit" block>
-          Log in
-        </Button>
-      </Form.Item>
+        <Form.Item
+          label="Password"
+          validateStatus={errors.password ? "error" : ""}
+          help={errors.password?.message}
+        >
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <Input.Password placeholder="Enter your password" {...field} />
+            )}
+          />
+        </Form.Item>
 
-      <div className="text-center">
-        <span className="text-gray-500 text-sm mr-1">Not a member?</span>
-        <Link to="/signup" className="text-blue-600 font-medium">
-          Register
-        </Link>
-      </div>
-    </Form>
+        <Form.Item>
+          <Button
+            className="!bg-[#FF4000]"
+            type="primary"
+            htmlType="submit"
+            block
+          >
+            Log in
+          </Button>
+        </Form.Item>
+
+        <div className="text-center">
+          <span className="text-gray-500 text-sm mr-1">Not a member?</span>
+          <Link to="/signup" className="!text-[#FF4000] font-medium">
+            Register
+          </Link>
+        </div>
+      </Form>
+    </div>
   );
 };
 

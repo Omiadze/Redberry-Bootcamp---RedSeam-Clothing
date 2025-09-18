@@ -1,15 +1,22 @@
 import "./App.css";
-import Login from "./pages/login";
+import Layout from "./layout";
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+import { Spin } from "antd";
+
+const LazyLoginPage = lazy(() => import("./pages/login"));
 
 function App() {
   return (
-    <>
-      <Login />
-
-      {/* <h1 className="text-3xl font-bold underline text-blue-600">
-        Hello, React 19 with Tailwind CSS!
-      </h1> */}
-    </>
+    <Suspense fallback={<Spin />}>
+      <Routes>
+        ksajdkadkj
+        <Route path="/" element={<Layout />}>
+          <Route path="login" element={<LazyLoginPage />} />{" "}
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 
