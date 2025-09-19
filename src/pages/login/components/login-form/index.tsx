@@ -58,7 +58,7 @@ const LoginForm: React.FC = () => {
       <Form
         onFinish={handleSubmit(onSubmit)}
         layout="vertical"
-        className="max-w-md mx-auto space-y-4"
+        className="max-w-md mx-auto space-y-4 "
       >
         {isError && (
           <Alert
@@ -98,7 +98,7 @@ const LoginForm: React.FC = () => {
 
         <Form.Item>
           <Button
-            className="!bg-[#FF4000]"
+            className="!bg-primary  "
             type="primary"
             htmlType="submit"
             block
@@ -106,10 +106,11 @@ const LoginForm: React.FC = () => {
             Log in
           </Button>
         </Form.Item>
+        <div>hhh</div>
 
-        <div className="text-center">
-          <span className="text-gray-500 text-sm mr-1">Not a member?</span>
-          <Link to="/signup" className="!text-[#FF4000] font-medium">
+        <div className="text-center ">
+          <span className="mr-1 text-sm text-gray-500 ">Not a member?</span>
+          <Link to="/register" className="!text-[#FF4000] font-medium ">
             Register
           </Link>
         </div>

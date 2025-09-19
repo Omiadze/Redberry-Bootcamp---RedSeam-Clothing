@@ -1,6 +1,6 @@
 import type { LoginDataTypes } from "../../pages/login/components/types/types";
 import { httpClient } from "..";
-import type { RegisterDataType } from "../../pages/registration/components/types";
+import type { RegisterDataType } from "../../pages/registration/components/types/types";
 import type { LoginResponseType, RegisterResponseType } from "./index.types";
 import axios from "axios";
 import { AUTH_ENDPOINTS } from "./index.enum";
