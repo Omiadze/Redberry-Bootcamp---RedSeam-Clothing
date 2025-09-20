@@ -106,7 +106,6 @@ const LoginForm: React.FC = () => {
             Log in
           </Button>
         </Form.Item>
-        <div>hhh</div>
 
         <div className="text-center ">
           <span className="mr-1 text-sm text-gray-500 ">Not a member?</span>
