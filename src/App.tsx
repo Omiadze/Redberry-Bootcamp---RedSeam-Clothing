@@ -8,6 +8,7 @@ import AuthGuard from "./components/route-guard/auth";
 const LazyLoginPage = lazy(() => import("./pages/login"));
 const LazyRegisterPage = lazy(() => import("./pages/registration"));
 const LazyHomePage = lazy(() => import("./pages/home"));
+const LazyProductDetailPage = lazy(() => import("./pages/detailed-product"));
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
           {/* products route */}
           <Route path="products" element={<LazyHomePage />} />
+          <Route path="products/:id" element={<LazyProductDetailPage />} />
 
           <Route
             path="login"

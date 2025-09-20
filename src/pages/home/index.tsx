@@ -1,4 +1,3 @@
-// 📂 src/pages/home/index.tsx
 import React, { useState } from "react";
 import {
   Card,
@@ -14,6 +13,7 @@ import {
 } from "antd";
 import { useProducts } from "./react-query/query";
 import FilterSvg from "../../assets/filter.svg";
+import { useNavigate } from "react-router-dom";
 
 const { Meta } = Card;
 
@@ -28,6 +28,7 @@ const HomePage: React.FC = () => {
   const [sort, setSort] = useState<string>("-created_at");
   const [priceFrom, setPriceFrom] = useState<number | undefined>(undefined);
   const [priceTo, setPriceTo] = useState<number | undefined>(undefined);
+  const navigate = useNavigate();
 
   const { data, isLoading } = useProducts({
     page,
@@ -129,6 +130,7 @@ const HomePage: React.FC = () => {
           <Col xs={24} sm={12} md={8} lg={6} key={product.id}>
             <Card
               hoverable
+              onClick={() => navigate(`/products/${product.id}`)}
               cover={
                 <img
                   alt={product.name}

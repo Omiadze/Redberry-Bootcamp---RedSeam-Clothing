@@ -40,3 +40,26 @@ export type ProductsListResponseType = {
     total: number;
   };
 };
+
+export type BrandType = {
+  id: number;
+  name: string;
+  image: string;
+};
+
+export type ProductDetailsType = {
+  id: number;
+  name: string;
+  description: string;
+  release_year: string;
+  cover_image: string;
+  images: string[];
+  price: number;
+  total_price: number;
+  quantity: number;
+  color: string;
+  size: string;
+  available_colors: string[];
+  available_sizes: string[];
+  brand: BrandType;
+};
