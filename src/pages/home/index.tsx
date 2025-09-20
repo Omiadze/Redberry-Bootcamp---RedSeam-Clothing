@@ -1,6 +1,19 @@
+// 📂 src/pages/home/index.tsx
 import React, { useState } from "react";
-import { Card, Row, Col, Select, Pagination, Spin } from "antd";
+import {
+  Card,
+  Row,
+  Col,
+  Select,
+  Pagination,
+  Spin,
+  Dropdown,
+  Button,
+  Form,
+  InputNumber,
+} from "antd";
 import { useProducts } from "./react-query/query";
+import FilterSvg from "../../assets/filter.svg";
 
 const { Meta } = Card;
 
@@ -13,12 +26,14 @@ const sortOptions = [
 const HomePage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<string>("-created_at");
+  const [priceFrom, setPriceFrom] = useState<number | undefined>(undefined);
+  const [priceTo, setPriceTo] = useState<number | undefined>(undefined);
 
   const { data, isLoading } = useProducts({
     page,
     sort,
-    "filter[price_from]": undefined,
-    "filter[price_to]": undefined,
+    "filter[price_from]": priceFrom,
+    "filter[price_to]": priceTo,
   });
 
   if (isLoading) {
@@ -29,26 +44,75 @@ const HomePage: React.FC = () => {
     );
   }
 
+  const filterContent = (
+    <div className="p-4 w-96 h-40 bg-white border-[1px] border-[#E1DFE1] rounded-lg">
+      <h4 className="font-semibold mb-3">Select price</h4>
+      <Form
+        layout="vertical"
+        onFinish={(values) => {
+          setPage(1);
+          setPriceFrom(values.priceFrom);
+          setPriceTo(values.priceTo);
+        }}
+      >
+        <div className="flex gap-2 mb-3">
+          <Form.Item
+            name="priceFrom"
+            // rules={[{ required: true, message: "Required" }]}
+            className="flex-1 !w-44"
+          >
+            <InputNumber placeholder="From" min={0} className="!w-44" />
+          </Form.Item>
+          <Form.Item
+            name="priceTo"
+            // rules={[{ required: true, message: "Required" }]}
+            className="flex-1 !w-44"
+          >
+            <InputNumber placeholder="To" min={0} className="!w-44" />
+          </Form.Item>
+        </div>
+        <div className="flex justify-end">
+          {" "}
+          <Button
+            className="!w-32 !bg-primary"
+            type="primary"
+            htmlType="submit"
+            block
+          >
+            Apply
+          </Button>
+        </div>
+      </Form>
+    </div>
+  );
+
   return (
-    <div className="sm:w-[90%] mx-auto mt-20 ">
+    <div className="sm:w-[90%] mx-auto mt-20 mb-20">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Products</h1>
 
-        <div className="flex justify-between items-center mb-6 gap-2">
-          <div>
-            {data && (
-              <p className="text-gray-600">
-                Showing {(data.meta.current_page - 1) * data.meta.per_page + 1}–
-                {Math.min(
-                  data.meta.current_page * data.meta.per_page,
-                  data.meta.total
-                )}{" "}
-                of {data.meta.total} results
-              </p>
-            )}
-          </div>
+        <div className="flex justify-between items-center mb-6 gap-4">
+          {data && (
+            <p className="text-gray-600">
+              Showing {(data.meta.current_page - 1) * data.meta.per_page + 1}–
+              {Math.min(
+                data.meta.current_page * data.meta.per_page,
+                data.meta.total
+              )}{" "}
+              of {data.meta.total} results
+            </p>
+          )}
+
+          <Dropdown popupRender={() => filterContent} trigger={["click"]}>
+            <Button type="link" className="!text-black">
+              {" "}
+              <img src={FilterSvg} alt="" />
+              Filter
+            </Button>
+          </Dropdown>
 
           <Select
+            className="!border-none"
             value={sort}
             style={{ width: 200 }}
             options={sortOptions}
