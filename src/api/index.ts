@@ -9,6 +9,10 @@ const axiosConfig: CreateAxiosDefaults = {
 
 export const httpClient = axios.create(axiosConfig);
 
-export const setAuthorizationHeader = (accessToken: string) => {
-  httpClient.defaults.headers["Authorization"] = accessToken;
-};
+httpClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
+});

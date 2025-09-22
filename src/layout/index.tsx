@@ -1,15 +1,29 @@
 import Header from "../components/header";
 
 import MainContainer from "../components/main-container";
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
+import CartDrawer from "../pages/cart-drawer";
 
 const Layout: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const isCartOpen = searchParams.get("cart") === "open";
+
+  const openCart = () => {
+    setSearchParams({ cart: "open" }); // adds ?cart=open to URL
+  };
+
+  const closeCart = () => {
+    searchParams.delete("cart"); // remove param
+    setSearchParams(searchParams);
+  };
   return (
     <>
-      <Header />
+      <Header onCartClick={openCart} />
       <MainContainer>
         <Outlet />
       </MainContainer>
+      <CartDrawer open={isCartOpen} onClose={closeCart} />
     </>
   );
 };

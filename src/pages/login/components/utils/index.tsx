@@ -1,4 +1,4 @@
-import { setAuthorizationHeader } from "../../../../api";
+// import { setAuthorizationHeader } from "../../../../api";
 import type { UserType } from "../../../../context/auth";
 
 export const AfterLoginSuccessn = ({
@@ -10,5 +10,5 @@ export const AfterLoginSuccessn = ({
 }) => {
   localStorage.setItem("accessToken", token || "");
   localStorage.setItem("user", JSON.stringify(user));
-  setAuthorizationHeader(`Bearer ${token}`);
+  // setAuthorizationHeader(`Bearer ${token}`);
 };
