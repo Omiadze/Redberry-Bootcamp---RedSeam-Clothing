@@ -12,6 +12,7 @@ import {
 import { ShoppingCartOutlined, HomeOutlined } from "@ant-design/icons";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "./query";
+import { useAddToCart } from "../../react-query/mutation";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -40,6 +41,8 @@ const ProductDetailPage: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const addToCartMutation = useAddToCart();
 
   // Fetch product data
   const { data: product, isLoading } = useProduct(Number(id));
@@ -71,6 +74,9 @@ const ProductDetailPage: React.FC = () => {
       size: selectedSize,
       quantity,
     });
+    const body = { color: selectedColor, size: selectedSize, quantity };
+    const productId = Number(id);
+    addToCartMutation.mutate({ productId, body });
   };
 
   return (
