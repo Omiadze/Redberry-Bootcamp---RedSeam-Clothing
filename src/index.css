@@ -3,4 +3,7 @@
 
 @theme {
   --color-primary: #FF4000; 
+  --color-grey: #E1DFE1;
+  --color-blue: #3E424A;
+  --border-width-thin: 1px;
 }
