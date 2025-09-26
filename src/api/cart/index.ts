@@ -1,6 +1,11 @@
 import { httpClient } from "..";
 import { CART_ENDPOINTS } from "./index.enum";
-import type { CartItemRequest, CartItemResponse } from "./index.types";
+import type {
+  CartItemRequest,
+  CartItemResponse,
+  Checkout,
+  CheckoutResponse,
+} from "./index.types";
 
 // ✅ 1. Get all products in cart
 export const getCart = async (): Promise<CartItemResponse[]> => {
@@ -35,4 +40,9 @@ export const updateCartItem = async (
 // ✅ 4. Remove product from cart
 export const removeFromCart = async (productId: number): Promise<void> => {
   await httpClient.delete(`${CART_ENDPOINTS.UPDATE_CART}${productId}`);
+};
+
+export const goCheckout = async (body: Checkout): Promise<CheckoutResponse> => {
+  const result = await httpClient.post(CART_ENDPOINTS.CHECKOUT, body);
+  return result.data;
 };

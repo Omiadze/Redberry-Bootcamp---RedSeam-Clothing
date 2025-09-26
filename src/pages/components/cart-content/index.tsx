@@ -119,11 +119,13 @@ const CartContent: React.FC<CartContentProps> = ({
 
         <Button
           type="primary"
+          className="!text-white"
           block
           size="large"
           style={{
+            height: "59px",
             marginTop: "60px",
-            backgroundColor: "orangered",
+
             borderColor: "orangered",
           }}
           onClick={onButtonClick}

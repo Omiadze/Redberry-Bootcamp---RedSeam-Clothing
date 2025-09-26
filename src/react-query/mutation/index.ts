@@ -1,8 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { CartItemRequest } from "../../api/cart/index.types";
-import { addToCart, removeFromCart, updateCartItem } from "../../api/cart";
+import type {
+  CartItemRequest,
+  Checkout,
+  CheckoutResponse,
+} from "../../api/cart/index.types";
+import {
+  addToCart,
+  goCheckout,
+  removeFromCart,
+  updateCartItem,
+} from "../../api/cart";
 
-// Add product to cart
 export const useAddToCart = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -14,12 +22,11 @@ export const useAddToCart = () => {
       body: CartItemRequest;
     }) => addToCart(productId, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] }); // refresh cart
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
 };
 
-// Update cart item
 export const useUpdateCartItem = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -43,6 +50,18 @@ export const useRemoveFromCart = () => {
     mutationFn: (productId: number) => removeFromCart(productId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
+};
+
+export const useGoCheckout = () => {
+  return useMutation<CheckoutResponse, Error, Checkout>({
+    mutationFn: (body) => goCheckout(body),
+    onSuccess: (data) => {
+      console.log(data.message);
+    },
+    onError: (error) => {
+      console.error("Checkout failed:", error.message);
     },
   });
 };

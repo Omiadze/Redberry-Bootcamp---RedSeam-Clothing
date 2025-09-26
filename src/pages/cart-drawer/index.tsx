@@ -3,6 +3,7 @@ import { Drawer } from "antd";
 import { useCart } from "../../react-query/query";
 import CartErrorPage from "./components/cart-404";
 import CartContent from "../components/cart-content";
+import { useNavigate } from "react-router-dom";
 
 type CartDrawerProps = {
   open: boolean;
@@ -11,12 +12,14 @@ type CartDrawerProps = {
 
 const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
   const { data: cartItems, isLoading, isError } = useCart();
+  const navigate = useNavigate();
   console.log(cartItems, "cart");
 
   if (isLoading) return <p>Loading cart...</p>;
 
   const handleCheckout = () => {
     console.log("Going to checkout...");
+    navigate("checkout");
   };
 
   return (

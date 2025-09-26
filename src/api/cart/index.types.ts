@@ -19,3 +19,13 @@ export type CartItemResponse = {
   color: string;
   size: string;
 };
+export type Checkout = {
+  name: string;
+  surname: string;
+  email: string;
+  zip_code: string;
+  address: string;
+};
+export interface CheckoutResponse {
+  message: string;
+}
