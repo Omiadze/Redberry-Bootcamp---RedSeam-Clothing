@@ -17,6 +17,8 @@ interface CartItem {
   price: number;
   total_price: number;
   cover_image: string;
+  images: string[];
+  available_colors: string[];
 }
 
 interface CartContentProps {
@@ -46,13 +48,24 @@ const CartContent: React.FC<CartContentProps> = ({
   const delivery = 5;
   const total = subtotal ? subtotal + delivery : null;
 
+  // Get image based on chosen color
+  const getImageForColor = (item: CartItem) => {
+    const index = item.available_colors.indexOf(item.color);
+    return index !== -1 && item.images[index]
+      ? item.images[index]
+      : item.cover_image;
+  };
+
   return (
     <div className={`flex flex-col justify-between h-full ${className}`}>
       <div className="flex flex-col">
         {cartItems.map((item) => (
-          <div className="flex w-[460px] gap-2 mb-7" key={item.id}>
+          <div
+            className="flex w-[460px] gap-2 mb-7"
+            key={item.id + item.color + item.size}
+          >
             <div className="flex justify-center items-center w-24 h-32 border-thin border-grey rounded-xl">
-              <Image src={item.cover_image} width={60} preview={false} />
+              <Image src={getImageForColor(item)} width={60} preview={false} />
             </div>
 
             <div
@@ -125,7 +138,6 @@ const CartContent: React.FC<CartContentProps> = ({
           style={{
             height: "59px",
             marginTop: "60px",
-
             borderColor: "orangered",
           }}
           onClick={onButtonClick}

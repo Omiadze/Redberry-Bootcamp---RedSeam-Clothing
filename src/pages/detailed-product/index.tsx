@@ -30,6 +30,9 @@ const getColorHex = (colorName: string): string => {
     White: "#F9FAFB",
     Gray: "#6B7280",
     Orange: "#F97316",
+    "Navy Blue": "#001F54",
+    Brown: "#8B4513",
+    Olive: "#808000",
   };
   return colorMap[colorName] || "#6B7280";
 };
@@ -49,13 +52,14 @@ const ProductDetailPage: React.FC = () => {
 
   // Set default selections safely
   useEffect(() => {
-    if (product?.available_colors?.length && !selectedColor) {
+    if (product?.available_colors?.length) {
       setSelectedColor(product.available_colors[0]);
+      setSelectedImageIndex(0);
     }
     if (product?.available_sizes?.length && !selectedSize) {
       setSelectedSize(product.available_sizes[0]);
     }
-  }, [product, selectedColor, selectedSize]);
+  }, [product, selectedSize]);
 
   if (isLoading) {
     return (
@@ -77,6 +81,20 @@ const ProductDetailPage: React.FC = () => {
     const body = { color: selectedColor, size: selectedSize, quantity };
     const productId = Number(id);
     addToCartMutation.mutate({ productId, body });
+  };
+
+  // Handle color click
+  const handleColorChange = (color: string) => {
+    setSelectedColor(color);
+    const index = product.available_colors.indexOf(color);
+    if (index !== -1) setSelectedImageIndex(index);
+  };
+
+  // Handle image click
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+    const color = product.available_colors[index];
+    if (color) setSelectedColor(color);
   };
 
   return (
@@ -117,7 +135,7 @@ const ProductDetailPage: React.FC = () => {
                       ? "border-blue-500"
                       : "border-gray-200"
                   }`}
-                  onClick={() => setSelectedImageIndex(index)}
+                  onClick={() => handleImageClick(index)}
                 >
                   <Image
                     src={img}
@@ -169,7 +187,7 @@ const ProductDetailPage: React.FC = () => {
                         : "border-gray-300"
                     }`}
                     style={{ backgroundColor: getColorHex(color) }}
-                    onClick={() => setSelectedColor(color)}
+                    onClick={() => handleColorChange(color)}
                     title={color}
                   />
                 ))}
