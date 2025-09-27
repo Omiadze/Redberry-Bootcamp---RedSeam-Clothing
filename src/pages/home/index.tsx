@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="sm:w-[90%] mx-auto mt-20 mb-20">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-blue text-[42px] font-semibold">Products</h1>
+        <h1 className="text-dark-blue text-[42px] font-semibold">Products</h1>
 
         <div className="flex justify-between items-center mb-6 gap-4">
           {data && (

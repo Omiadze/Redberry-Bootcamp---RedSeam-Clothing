@@ -3,8 +3,9 @@ import UserIcon from "../../assets/user.svg";
 import CartIcon from "../../assets/cartIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/auth/hooks";
-import { Dropdown, type MenuProps, Avatar, Button } from "antd";
+import { Dropdown, type MenuProps, Avatar, Button, Badge } from "antd";
 import ArrowDown from "../../assets/chevron-down.svg";
+import { useCart } from "../../react-query/query";
 
 type HeaderProps = {
   onCartClick: () => void;
@@ -13,6 +14,9 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ onCartClick }) => {
   const navigate = useNavigate();
   const { user, setUser } = useAuthContext();
+  const { data: cartItems } = useCart();
+
+  const distinctProducts = cartItems?.length ?? 0;
 
   const menu: MenuProps["items"] = [
     {
@@ -39,7 +43,9 @@ const Header: React.FC<HeaderProps> = ({ onCartClick }) => {
           onClick={() => navigate("/")}
         >
           <img src={HandEye} alt="Logo" className="w-6 h-6" />
-          <p className="text-[16px] font-semibold">RedSeam Clothing</p>
+          <p className="text-[16px] !text-dark-blue font-semibold">
+            RedSeam Clothing
+          </p>
         </div>
 
         <div className="flex items-center gap-4">
@@ -53,11 +59,19 @@ const Header: React.FC<HeaderProps> = ({ onCartClick }) => {
             </div>
           ) : (
             <>
-              <Button
-                type="text"
-                icon={<img src={CartIcon} alt="Cart" />}
-                onClick={onCartClick}
-              />
+              <Badge
+                count={distinctProducts}
+                overflowCount={99}
+                offset={[0, 0]}
+                size="small"
+                style={{ backgroundColor: "#FF4D4F" }}
+              >
+                <Button
+                  type="text"
+                  icon={<img src={CartIcon} alt="Cart" />}
+                  onClick={onCartClick}
+                />
+              </Badge>
 
               <Dropdown menu={{ items: menu }} placement="bottomRight">
                 <div className="flex items-center gap-2 cursor-pointer">
