@@ -48,7 +48,6 @@ const CartContent: React.FC<CartContentProps> = ({
   const delivery = 5;
   const total = subtotal ? subtotal + delivery : null;
 
-  // Get image based on chosen color
   const getImageForColor = (item: CartItem) => {
     const index = item.available_colors.indexOf(item.color);
     return index !== -1 && item.images[index]
@@ -87,7 +86,7 @@ const CartContent: React.FC<CartContentProps> = ({
                   }
                 />
               ) : (
-                <Text>Qty: {item.quantity}</Text>
+                <Text className="!text-sm">Quantity: {item.quantity}</Text>
               )}
             </div>
 
@@ -95,7 +94,7 @@ const CartContent: React.FC<CartContentProps> = ({
               className="flex flex-col justify-between h-32 py-1"
               style={{ flexShrink: 0, width: "auto" }}
             >
-              <Text className="!text-center">${item.total_price}</Text>
+              <Text className="!text-center">$ {item.total_price}</Text>
               {showRemoveButton && (
                 <Button
                   className="!text-blue !text-xs"
@@ -115,24 +114,24 @@ const CartContent: React.FC<CartContentProps> = ({
       <div className="flex flex-col gap-3">
         <Row justify="space-between">
           <Text>Items subtotal</Text>
-          <Text>${subtotal}</Text>
+          <Text>$ {subtotal}</Text>
         </Row>
         <Row justify="space-between">
           <Text>Delivery</Text>
-          <Text>${delivery}</Text>
+          <Text>$ {delivery}</Text>
         </Row>
         <Row justify="space-between" align="middle">
           <Title className="!m-0" level={4}>
             Total
           </Title>
           <Title className="!m-0" level={4}>
-            ${total}
+            $ {total}
           </Title>
         </Row>
 
         <Button
           type="primary"
-          className="!text-white"
+          className="!text-white !bg-primary !mb-10 !rounded-xl"
           block
           size="large"
           style={{

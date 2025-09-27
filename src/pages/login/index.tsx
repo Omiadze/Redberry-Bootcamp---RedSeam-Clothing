@@ -10,14 +10,11 @@ const Login: React.FC = () => {
     <div className="flex justify-between h-full sm:h-screen ">
       <img src={RedSeamImg} alt="" />
       <div className="flex items-center justify-center mr-24">
-        <Card
-          className="w-[370px] !border-none"
-          //   bordered
-          // bodyStyle={{ padding: "24px" }}
-          //   hoverable
-        >
+        <Card className="w-[370px] !border-none">
           <div className="mb-4 text-left">
-            <Title level={4}>Log in</Title>
+            <Title className="!text-[42px] !font-semibold !text-dark-blue">
+              Log in
+            </Title>
           </div>
 
           <LoginForm />

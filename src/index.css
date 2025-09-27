@@ -64,3 +64,28 @@
   background-color: #FF4000 !important;
   color: white !important
 }
+
+
+
+.ant-input:hover,
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #FF4000 !important; 
+  box-shadow: 0 0 0 2px rgba(255, 64, 0, 0.2) !important; 
+}
+
+
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: #FF4000 !important;
+  box-shadow: 0 0 0 2px rgba(255, 64, 0, 0.2) !important;
+}
+
+
+.ant-input-disabled:hover,
+.ant-input-affix-wrapper-disabled:hover {
+  border-color: #d9d9d9 !important;
+}
+
+

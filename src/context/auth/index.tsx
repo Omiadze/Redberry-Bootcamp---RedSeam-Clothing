@@ -1,7 +1,7 @@
 import {
   createContext,
-  useEffect,
   useState,
+  useEffect,
   type PropsWithChildren,
 } from "react";
 import { Spin } from "antd";
@@ -12,10 +12,12 @@ export type UserType = {
   email: string;
   is_admin?: number;
   remember_token?: string | null;
+  avatar?: string | null;
 };
 
 type AuthContextType = {
   user: UserType | null;
+  setUser: (user: UserType | null) => void; // expose setter
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -28,22 +30,17 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+    const userStr = localStorage.getItem("user");
 
-    if (token) {
-      // Build user object from stored values
-      const storedUser: UserType = {
-        id: Number(localStorage.getItem("userId")),
-        username: localStorage.getItem("username") || "",
-        email: localStorage.getItem("email") || "",
-      };
-      setUser(storedUser);
+    if (token && userStr) {
+      setUser(JSON.parse(userStr));
     }
 
     setIsLoading(false);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {isLoading ? <Spin /> : children}
     </AuthContext.Provider>
   );

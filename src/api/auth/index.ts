@@ -22,10 +22,17 @@ export const Login = async (
 };
 
 export const Register = async (
-  data: RegisterDataType
+  data: RegisterDataType | FormData
 ): Promise<RegisterResponseType | undefined> => {
   try {
-    const result = await httpClient.post(AUTH_ENDPOINTS.SIGN_UP, data);
+    const headers =
+      data instanceof FormData
+        ? { "Content-Type": "multipart/form-data" }
+        : undefined;
+
+    const result = await httpClient.post(AUTH_ENDPOINTS.SIGN_UP, data, {
+      headers,
+    });
     return result.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

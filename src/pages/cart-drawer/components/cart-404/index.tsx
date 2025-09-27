@@ -13,7 +13,11 @@ const CartErrorPage = () => {
         <h1 className="text-2xl text-black font-bold">Ooops!</h1>
         <p>You’ve got nothing in your cart just yet...</p>
       </div>
-      <Button onClick={() => navigate("/")} className="!bg-primary !text-white">
+      <Button
+        type="primary"
+        onClick={() => navigate("/")}
+        className="!bg-primary !text-white !p-5"
+      >
         Start shopping
       </Button>
     </div>

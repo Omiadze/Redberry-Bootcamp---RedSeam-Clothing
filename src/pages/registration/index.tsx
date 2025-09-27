@@ -12,7 +12,9 @@ const Register: React.FC = () => {
       <div className="flex items-center justify-center mr-24">
         <Card className="w-[370px] !border-none">
           <div className="mb-4 text-left">
-            <Title level={4}>Register</Title>
+            <Title className="!text-[42px] !font-semibold !text-dark-blue">
+              Registration
+            </Title>
           </div>
           <RegisterForm />
         </Card>

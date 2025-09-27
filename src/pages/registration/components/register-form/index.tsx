@@ -2,137 +2,130 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button, Form, Alert } from "antd";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate, Link } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { RegisterDataType } from "../types/types";
-import { RegisterFormSchema } from "./schema";
-import { Register } from "../../../../api/auth";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { Login } from "../../../../api/auth";
+import { useAfterLogin } from "../../../login/components/utils";
 import { queryClient } from "../../../../main";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginFormSchema } from "../../../login/components/login-form/schema";
+import type { LoginDataTypes } from "../../../login/components/types/types";
 
-const defaultValues: RegisterDataType = {
+const defaultValues: LoginDataTypes = {
   email: "",
-  username: "",
   password: "",
-  password_confirmation: "",
 };
 
-const RegisterForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const toNavigate =
+    location?.state?.from?.pathname + location?.state?.from?.search || "/";
+
+  const afterLogin = useAfterLogin();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterDataType>({
-    resolver: zodResolver(RegisterFormSchema),
+  } = useForm<LoginDataTypes>({
+    resolver: zodResolver(LoginFormSchema),
     defaultValues,
   });
 
   const {
-    mutate: handleRegister,
+    mutate: handleLogin,
     isError,
     error,
   } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: Register,
+    mutationKey: ["login"],
+    mutationFn: Login,
     onSuccess: (res) => {
       if (!res) return;
-      console.log(res, "succesregister");
-
+      afterLogin({ token: res.token, user: res.user });
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      navigate("/login"); // navigate to login after success
+      navigate(toNavigate, { replace: true });
     },
   });
 
-  const onSubmit = (values: RegisterDataType) => {
-    handleRegister(values);
-    console.log(values);
+  const onSubmit = (values: LoginDataTypes) => {
+    handleLogin(values);
   };
 
   return (
-    <Form
-      onFinish={handleSubmit(onSubmit)}
-      layout="vertical"
-      className="max-w-md mx-auto space-y-4"
-    >
-      {isError && (
-        <Alert
-          message={(error as Error)?.message || "Registration failed"}
-          type="error"
-          showIcon
-        />
-      )}
-
-      <Form.Item
-        label="Email"
-        validateStatus={errors.email ? "error" : ""}
-        help={errors.email?.message}
+    <div className="max-w-md mx-auto">
+      <Form
+        onFinish={handleSubmit(onSubmit)}
+        layout="vertical"
+        className="space-y-4"
       >
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <Input placeholder="Enter your email" {...field} />
-          )}
-        />
-      </Form.Item>
+        {isError && (
+          <Alert
+            message={(error as Error)?.message || "Login failed"}
+            type="error"
+            showIcon
+            className="mb-4"
+          />
+        )}
 
-      <Form.Item
-        label="Username"
-        validateStatus={errors.username ? "error" : ""}
-        help={errors.username?.message}
-      >
-        <Controller
-          name="username"
-          control={control}
-          render={({ field }) => (
-            <Input placeholder="Enter your username" {...field} />
-          )}
-        />
-      </Form.Item>
+        {/* EMAIL */}
+        <Form.Item
+          validateStatus={errors.email ? "error" : ""}
+          help={errors.email?.message}
+        >
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <Input
+                placeholder="Email *"
+                {...field}
+                className="rounded-lg h-10 !text-sm !font-normal"
+              />
+            )}
+          />
+        </Form.Item>
 
-      <Form.Item
-        label="Password"
-        validateStatus={errors.password ? "error" : ""}
-        help={errors.password?.message}
-      >
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => (
-            <Input.Password placeholder="Enter your password" {...field} />
-          )}
-        />
-      </Form.Item>
+        {/* PASSWORD */}
+        <Form.Item
+          validateStatus={errors.password ? "error" : ""}
+          help={errors.password?.message}
+        >
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <Input.Password
+                placeholder="Password *"
+                {...field}
+                className="rounded-lg h-10 !text-sm !font-normal"
+              />
+            )}
+          />
+        </Form.Item>
 
-      <Form.Item
-        label="Confirm Password"
-        validateStatus={errors.password_confirmation ? "error" : ""}
-        help={errors.password_confirmation?.message}
-      >
-        <Controller
-          name="password_confirmation"
-          control={control}
-          render={({ field }) => (
-            <Input.Password placeholder="Confirm your password" {...field} />
-          )}
-        />
-      </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            block
+            className="!bg-[#FF4000] hover:!bg-[#FF4000]/90 !border-[#FF4000] !rounded-[10px] !h-11 text-base font-medium !text-white"
+          >
+            Log in
+          </Button>
+        </Form.Item>
 
-      <Form.Item>
-        <Button className="!bg-primary" type="primary" htmlType="submit" block>
-          Register
-        </Button>
-      </Form.Item>
-
-      <div className="text-center">
-        <span className="mr-1 text-sm text-gray-500">Already member?</span>
-        <Link to="/login" className="!text-[#FF4000] font-medium">
-          Login
-        </Link>
-      </div>
-    </Form>
+        <div className="text-center !mt-6">
+          <span className="text-sm text-[#3E424A]">Not a member? </span>
+          <Link
+            to="/register"
+            className="!text-[#FF4000] !font-medium hover:!text-[#FF4000]/80"
+          >
+            Register
+          </Link>
+        </div>
+      </Form>
+    </div>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

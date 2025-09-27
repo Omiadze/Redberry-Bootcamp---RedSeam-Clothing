@@ -36,8 +36,8 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
   }));
 
   return (
-    <div className="bg-white">
-      <Title level={3} className="!mb-8 !mt-0 !text-gray-800">
+    <div className="w-1/2">
+      <Title className="!mb-8 !mt-0 !text-2xl !font-medium">
         Order details
       </Title>
       <Form layout="vertical" className="space-y-6">
@@ -45,13 +45,18 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
           <Form.Item
             validateStatus={errors?.name ? "error" : ""}
             help={errors?.name?.message}
-            className="flex-1 !mb-0"
+            className="flex-1 !mb-0 !text-sm !font-normal"
           >
             <Controller
               name="name"
               control={control}
               render={({ field }) => (
-                <Input placeholder="Name" size="large" {...field} />
+                <Input
+                  className="!text-sm !font-normal"
+                  placeholder="Name"
+                  size="large"
+                  {...field}
+                />
               )}
             />
           </Form.Item>
@@ -64,7 +69,12 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               name="surname"
               control={control}
               render={({ field }) => (
-                <Input placeholder="Surname" size="large" {...field} />
+                <Input
+                  className="!text-sm !font-normal"
+                  placeholder="Surname"
+                  size="large"
+                  {...field}
+                />
               )}
             />
           </Form.Item>
@@ -78,6 +88,7 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
             control={control}
             render={({ field }) => (
               <Input
+                className="!text-sm !font-normal"
                 prefix={<MailOutlined />}
                 placeholder="Email"
                 size="large"
@@ -96,7 +107,12 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               name="address"
               control={control}
               render={({ field }) => (
-                <Input placeholder="Address" size="large" {...field} />
+                <Input
+                  className="!text-sm !font-normal"
+                  placeholder="Address"
+                  size="large"
+                  {...field}
+                />
               )}
             />
           </Form.Item>
@@ -109,7 +125,12 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               name="zip_code"
               control={control}
               render={({ field }) => (
-                <Input placeholder="Zip code" size="large" {...field} />
+                <Input
+                  className="!text-sm !font-normal"
+                  placeholder="Zip code"
+                  size="large"
+                  {...field}
+                />
               )}
             />
           </Form.Item>

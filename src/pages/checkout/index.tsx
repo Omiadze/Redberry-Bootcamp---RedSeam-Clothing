@@ -31,24 +31,21 @@ const CheckoutPage: React.FC = () => {
     return <div className="p-8">No items in cart</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-gray-900">Checkout</h1>
+    <div className="min-h-screen sm:w-[90%] mx-auto mt-20 mb-20">
+      <div className="w-full">
+        <h1 className="text-[42px] font-semibold mb-8 ">Checkout</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="bg-white rounded-xl p-8 shadow-sm">
+        <div className="flex w-full justify-between gap-4">
+          <div className="bg-[#F8F6F7] rounded-xl p-8 h-[634px] shadow-sm w-[65%]">
             <CheckoutForm ref={formRef} onSubmit={handleFormSubmit} />
           </div>
-
-          <div className="bg-white rounded-xl p-8 shadow-sm">
-            <h2 className="text-xl font-semibold mb-6 text-gray-900">
-              Order Summary
-            </h2>
+          <div className="w-[460px]">
             <CartContent
               cartItems={cartItems}
-              showQuantitySelector={false}
+              // showQuantitySelector={false}
               showRemoveButton={false}
               onButtonClick={() => formRef.current?.submit()}
+              buttonText="Pay"
             />
           </div>
         </div>

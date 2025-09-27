@@ -1,14 +1,12 @@
-// import { setAuthorizationHeader } from "../../../../api";
+import { useAuthContext } from "../../../../context/auth/hooks";
 import type { UserType } from "../../../../context/auth";
 
-export const AfterLoginSuccessn = ({
-  token,
-  user,
-}: {
-  token: string | undefined;
-  user: UserType;
-}) => {
-  localStorage.setItem("accessToken", token || "");
-  localStorage.setItem("user", JSON.stringify(user));
-  // setAuthorizationHeader(`Bearer ${token}`);
+export const useAfterLogin = () => {
+  const { setUser } = useAuthContext();
+
+  return ({ token, user }: { token?: string; user: UserType }) => {
+    localStorage.setItem("accessToken", token || "");
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user); // update context -> header reacts automatically
+  };
 };
