@@ -3,8 +3,6 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [
-    react(), // This is essential for React HMR
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
+  base: "/",
 });

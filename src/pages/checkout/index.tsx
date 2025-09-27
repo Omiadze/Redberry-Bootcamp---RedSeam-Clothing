@@ -10,7 +10,7 @@ const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { data: cartItems, isLoading, isError } = useCart();
 
-  const { mutate: checkout, isPending, error } = useGoCheckout();
+  const { mutate: checkout } = useGoCheckout();
 
   const formRef = useRef<any>(null);
 
