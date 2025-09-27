@@ -1,9 +1,10 @@
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Form, Typography } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutFormSchema, type CheckoutFormData } from "./schema";
+import { useAuthContext } from "../../../../context/auth/hooks";
 
 const { Title } = Typography;
 
@@ -19,18 +20,29 @@ const defaultValues: CheckoutFormData = {
   zip_code: "",
 };
 
-// Use forwardRef to allow ref from parent
 const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
+  const { user } = useAuthContext();
+
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(CheckoutFormSchema),
     defaultValues,
   });
 
-  // Expose a `submit` method to parent
+  // Prefill form with user email if available
+  useEffect(() => {
+    if (user?.email) {
+      reset({
+        ...defaultValues,
+        email: user.email, // prepopulate email
+      });
+    }
+  }, [user?.email, reset]);
+
   useImperativeHandle(ref, () => ({
     submit: () => handleSubmit(onSubmit)(),
   }));
