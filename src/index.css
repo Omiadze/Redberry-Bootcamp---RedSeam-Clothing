@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
-/* 🎨 Your theme variables */
+
 @theme {
   --color-primary: #FF4000; 
   --color-grey: #E1DFE1;
   --color-blue: #3E424A;
+  --color-dark-blue: #10151F;
   --border-width-thin: 1px;
 }
 
-/* 🌍 Global font setup (Poppins) */
+
 @layer base {
   html, body {
     font-family: "Poppins", sans-serif !important;
+    color: #10151F !important;
   }
 }
 
@@ -25,6 +27,7 @@
 .ant-modal,
 .ant-card {
   font-family: "Poppins", sans-serif !important;
+  color: #10151F !important;
 }
 
 .no-border-select .ant-select-selector {
@@ -47,4 +50,17 @@
 }
 .ant-pagination .ant-pagination-item a{
   color: #212B36;
+}
+
+
+.ant-select:hover .ant-select-selector,
+.ant-select-focused .ant-select-selector {
+  border-color: #FF4000 !important; 
+  box-shadow: 0 0 0 2px rgba(255, 64, 0, 0.2) !important; 
+}
+
+
+.ant-select-item-option-selected {
+  background-color: #FF4000 !important;
+  color: white !important
 }

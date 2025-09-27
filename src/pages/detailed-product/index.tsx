@@ -9,10 +9,10 @@ import {
   Breadcrumb,
   Spin,
 } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "./query";
 import { useAddToCart } from "../../react-query/mutation";
+import ButtonCart from "../../assets/buttonCart.svg";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -102,14 +102,6 @@ const ProductDetailPage: React.FC = () => {
       {/* Breadcrumb */}
       <Breadcrumb
         items={[
-          // {
-          //   title: (
-          //     <HomeOutlined
-          //       onClick={() => navigate("/")}
-          //       className="cursor-pointer"
-          //     />
-          //   ),
-          // },
           {
             title: (
               <span onClick={() => navigate("/")} className="cursor-pointer">
@@ -132,7 +124,7 @@ const ProductDetailPage: React.FC = () => {
                   key={index}
                   className={`w-20 h-20 cursor-pointer border-2 rounded-lg overflow-hidden ${
                     selectedImageIndex === index
-                      ? "border-blue-500"
+                      ? "border-[#FF4000]"
                       : "border-gray-200"
                   }`}
                   onClick={() => handleImageClick(index)}
@@ -164,67 +156,75 @@ const ProductDetailPage: React.FC = () => {
           <div className="space-y-6">
             {/* Product title and price */}
             <div>
-              <Title level={2} className="!mb-2">
+              <Title level={2} className="!mb-2 !text-3xl !font-semibold">
                 {product.name}
               </Title>
-              <Title level={2} className="!text-black !mb-6">
+              <Title level={2} className="!text-3xl !font-semibold !mb-6">
                 $ {product.price}
               </Title>
             </div>
 
-            {/* Color selection */}
             <div>
-              <Text strong className="block mb-3">
+              <Text className="block mb-3 !text-[16px] !font-normal">
                 Color: {selectedColor}
               </Text>
-              <div className="flex gap-2">
+              <div className="flex gap-4  items-center">
                 {product.available_colors?.map((color) => (
                   <div
                     key={color}
-                    className={`w-8 h-8 rounded-full cursor-pointer border-2 ${
-                      selectedColor === color
-                        ? "border-gray-800"
-                        : "border-gray-300"
+                    className={`relative cursor-pointer ${
+                      selectedColor === color ? "p-1" : ""
                     }`}
-                    style={{ backgroundColor: getColorHex(color) }}
                     onClick={() => handleColorChange(color)}
                     title={color}
-                  />
+                  >
+                    {selectedColor === color && (
+                      <div className="absolute inset-0 rounded-full border-2 border-[#E1DFE1]"></div>
+                    )}
+
+                    <div
+                      className="w-8 h-8 rounded-full"
+                      style={{ backgroundColor: getColorHex(color) }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* Size selection */}
-            <div className="flex gap-2">
-              {product.available_sizes?.length ? (
-                product.available_sizes.map((size) => (
-                  <Button
-                    key={size}
-                    type="default" // Keep default so it doesn't turn blue
-                    onClick={() => setSelectedSize(size)}
-                    className={`min-w-[40px] ${
-                      selectedSize === size
-                        ? "!bg-grey !border-black !border-[1px] hover:!text-black" // selected style
-                        : "!bg-white !border-gray-300 hover:!text-black !border-[1px]" // unselected style
-                    }`}
-                    style={{ borderWidth: "2px" }} // optional: thicker border
-                  >
-                    {size}
-                  </Button>
-                ))
-              ) : (
-                <span>Unavailable</span>
-              )}
+            <div className="flex flex-col gap-2">
+              <p className="!text-[16px] !font-normal">Size: {selectedSize}</p>
+              <div className="flex gap-1">
+                {product.available_sizes?.length ? (
+                  product.available_sizes.map((size) => (
+                    <Button
+                      key={size}
+                      type="default"
+                      onClick={() => setSelectedSize(size)}
+                      className={`!w-[70px] !color-blue ${
+                        selectedSize === size
+                          ? "!bg-[#F8F6F7] !border-blue !border-[1px] hover:!text-black"
+                          : "!bg-white !border-gray-300 hover:!text-black !border-[1px]"
+                      }`}
+                      style={{ borderWidth: "2px" }}
+                    >
+                      {size}
+                    </Button>
+                  ))
+                ) : (
+                  <span>Unavailable</span>
+                )}
+              </div>
             </div>
 
             {/* Quantity */}
             <div>
-              <Text strong className="block mb-3">
+              <Text className="block mb-3 !text-[16px] !font-normal">
                 Quantity
               </Text>
               <Select
                 value={quantity}
-                style={{ width: 80 }}
+                style={{ width: 70 }}
                 onChange={setQuantity}
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
@@ -239,26 +239,26 @@ const ProductDetailPage: React.FC = () => {
             <Button
               type="primary"
               size="large"
-              icon={<ShoppingCartOutlined />}
               onClick={handleAddToCart}
               disabled={!product.available_sizes?.length}
-              className={`w-full !h-12 !text-base ${
+              className={`w-full !h-12 !text-base !text-white !rounded-[10px] ${
                 !product.available_sizes?.length
                   ? "!bg-gray-400 !cursor-not-allowed"
                   : "!bg-primary hover:!bg-orange-600"
               }`}
             >
+              <img src={ButtonCart} alt="" />
               {!product.available_sizes?.length
                 ? "Currently Unavailable"
                 : "Add to cart"}
             </Button>
 
             {/* Product details */}
-            <div className="pt-6 border-t border-gray-200">
-              <div className="flex justify-between items-center">
-                <Title level={4} className="">
+            <div className="pt-10 mt-10 border-t border-gray-200">
+              <div className="flex justify-between items-center mb-7">
+                <h1 className="!text-xl !font-medium !text-dark-blue">
                   Details
-                </Title>
+                </h1>
                 {product.brand?.image && (
                   <div className=" flex justify-center items-center">
                     <img
@@ -269,11 +269,11 @@ const ProductDetailPage: React.FC = () => {
                   </div>
                 )}
               </div>
-              <div className="space-y-2">
-                <Text>
-                  <strong>Brand:</strong> {product.brand?.name}
+              <div className="flex flex-col gap-7">
+                <Text className="!text-[16px] !text-blue !font-normal">
+                  Brand: {product.brand?.name}
                 </Text>
-                <Text className="block text-gray-600">
+                <Text className="block !text-[16px] !text-blue !font-normal">
                   {product.description}
                 </Text>
               </div>
