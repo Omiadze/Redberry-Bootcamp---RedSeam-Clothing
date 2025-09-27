@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="sm:w-[90%] mx-auto mt-20 mb-20">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-dark-blue text-[42px] font-semibold">Products</h1>
+        <h1 className="text-blue text-[42px] font-semibold">Products</h1>
 
         <div className="flex justify-between items-center mb-6 gap-4">
           {data && (
@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
           <Dropdown popupRender={() => sortContent} trigger={["click"]}>
             <Button
               type="link"
-              className="!text-blue flex items-center gap-2 border border-gray-300 rounded px-3 py-1 hover:border-gray-400"
+              className="!text-black flex items-center gap-2 border border-gray-300 rounded px-3 py-1 hover:border-gray-400"
             >
               <span className="text-[16px] font-normal">
                 {getCurrentSortLabel()}
