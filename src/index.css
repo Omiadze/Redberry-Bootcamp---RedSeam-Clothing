@@ -1,9 +1,50 @@
 @import "tailwindcss";
 
-
+/* 🎨 Your theme variables */
 @theme {
   --color-primary: #FF4000; 
   --color-grey: #E1DFE1;
   --color-blue: #3E424A;
   --border-width-thin: 1px;
+}
+
+/* 🌍 Global font setup (Poppins) */
+@layer base {
+  html, body {
+    font-family: "Poppins", sans-serif !important;
+  }
+}
+
+/* 🧱 Apply to Ant Design components too */
+.ant-typography,
+.ant-btn,
+.ant-input,
+.ant-select,
+.ant-menu,
+.ant-form,
+.ant-modal,
+.ant-card {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.no-border-select .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+.card-style .ant-card-body{
+  padding: 0 !important;
+}
+
+.ant-pagination .ant-pagination-item-active  {
+  border-color: #FF4000 !important
+}
+.ant-pagination .ant-pagination-item-active a {
+  color: #FF4000 !important
+}
+
+.ant-pagination .ant-pagination-item {
+  border-color: #F8F6F7;
+}
+.ant-pagination .ant-pagination-item a{
+  color: #212B36;
 }

@@ -9,7 +9,7 @@ import {
   Breadcrumb,
   Spin,
 } from "antd";
-import { ShoppingCartOutlined, HomeOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "./query";
 import { useAddToCart } from "../../react-query/mutation";
@@ -102,14 +102,14 @@ const ProductDetailPage: React.FC = () => {
       {/* Breadcrumb */}
       <Breadcrumb
         items={[
-          {
-            title: (
-              <HomeOutlined
-                onClick={() => navigate("/")}
-                className="cursor-pointer"
-              />
-            ),
-          },
+          // {
+          //   title: (
+          //     <HomeOutlined
+          //       onClick={() => navigate("/")}
+          //       className="cursor-pointer"
+          //     />
+          //   ),
+          // },
           {
             title: (
               <span onClick={() => navigate("/")} className="cursor-pointer">
@@ -119,7 +119,7 @@ const ProductDetailPage: React.FC = () => {
           },
           { title: "Product" },
         ]}
-        className="mb-6"
+        className="!mb-12"
       />
 
       <Row gutter={[32, 32]}>
@@ -195,26 +195,26 @@ const ProductDetailPage: React.FC = () => {
             </div>
 
             {/* Size selection */}
-            <div>
-              <Text strong className="block mb-3">
-                Size: {selectedSize}
-              </Text>
-              <div className="flex gap-2">
-                {product.available_sizes?.length ? (
-                  product.available_sizes.map((size) => (
-                    <Button
-                      key={size}
-                      type={selectedSize === size ? "primary" : "default"}
-                      onClick={() => setSelectedSize(size)}
-                      className="min-w-[40px]"
-                    >
-                      {size}
-                    </Button>
-                  ))
-                ) : (
-                  <span>Unavailable</span>
-                )}
-              </div>
+            <div className="flex gap-2">
+              {product.available_sizes?.length ? (
+                product.available_sizes.map((size) => (
+                  <Button
+                    key={size}
+                    type="default" // Keep default so it doesn't turn blue
+                    onClick={() => setSelectedSize(size)}
+                    className={`min-w-[40px] ${
+                      selectedSize === size
+                        ? "!bg-grey !border-black !border-[1px] hover:!text-black" // selected style
+                        : "!bg-white !border-gray-300 hover:!text-black !border-[1px]" // unselected style
+                    }`}
+                    style={{ borderWidth: "2px" }} // optional: thicker border
+                  >
+                    {size}
+                  </Button>
+                ))
+              ) : (
+                <span>Unavailable</span>
+              )}
             </div>
 
             {/* Quantity */}
@@ -245,7 +245,7 @@ const ProductDetailPage: React.FC = () => {
               className={`w-full !h-12 !text-base ${
                 !product.available_sizes?.length
                   ? "!bg-gray-400 !cursor-not-allowed"
-                  : "!bg-orange-500 hover:!bg-orange-600"
+                  : "!bg-primary hover:!bg-orange-600"
               }`}
             >
               {!product.available_sizes?.length
@@ -255,9 +255,20 @@ const ProductDetailPage: React.FC = () => {
 
             {/* Product details */}
             <div className="pt-6 border-t border-gray-200">
-              <Title level={4} className="!mb-4">
-                Details
-              </Title>
+              <div className="flex justify-between items-center">
+                <Title level={4} className="">
+                  Details
+                </Title>
+                {product.brand?.image && (
+                  <div className=" flex justify-center items-center">
+                    <img
+                      src={product.brand.image}
+                      alt={product.brand.name}
+                      className="h-8 opacity-60"
+                    />
+                  </div>
+                )}
+              </div>
               <div className="space-y-2">
                 <Text>
                   <strong>Brand:</strong> {product.brand?.name}
@@ -266,15 +277,6 @@ const ProductDetailPage: React.FC = () => {
                   {product.description}
                 </Text>
               </div>
-              {product.brand?.image && (
-                <div className="mt-6 flex justify-end">
-                  <img
-                    src={product.brand.image}
-                    alt={product.brand.name}
-                    className="h-8 opacity-60"
-                  />
-                </div>
-              )}
             </div>
           </div>
         </Col>

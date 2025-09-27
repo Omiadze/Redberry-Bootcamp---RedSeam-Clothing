@@ -15,8 +15,6 @@ import { useProducts } from "./react-query/query";
 import FilterSvg from "../../assets/filter.svg";
 import { useNavigate } from "react-router-dom";
 
-const { Meta } = Card;
-
 const sortOptions = [
   { label: "New products first", value: "-created_at" },
   { label: "Price, low to high", value: "price" },
@@ -90,32 +88,34 @@ const HomePage: React.FC = () => {
   return (
     <div className="sm:w-[90%] mx-auto mt-20 mb-20">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Products</h1>
+        <h1 className="text-blue text-[42px]  font-semibold">Products</h1>
 
-        <div className="flex justify-between items-center mb-6 gap-4">
+        <div className="flex justify-between items-center mb-6 gap  ">
           {data && (
-            <p className="text-gray-600">
-              Showing {(data.meta.current_page - 1) * data.meta.per_page + 1}–
-              {Math.min(
-                data.meta.current_page * data.meta.per_page,
-                data.meta.total
-              )}{" "}
-              of {data.meta.total} results
-            </p>
+            <div className="border-r-[1px] border-[#E1DFE1] pr-5">
+              <p className="text-blue text-xs font-normal">
+                Showing {(data.meta.current_page - 1) * data.meta.per_page + 1}–
+                {Math.min(
+                  data.meta.current_page * data.meta.per_page,
+                  data.meta.total
+                )}{" "}
+                of {data.meta.total} results
+              </p>
+            </div>
           )}
 
           <Dropdown popupRender={() => filterContent} trigger={["click"]}>
             <Button type="link" className="!text-black">
               {" "}
               <img src={FilterSvg} alt="" />
-              Filter
+              <p className="text-blue text-[16px] font-normal">Filter</p>
             </Button>
           </Dropdown>
 
           <Select
-            className="!border-none"
+            className="no-border-select"
             value={sort}
-            style={{ width: 200 }}
+            // style={{ width: 200 }}
             options={sortOptions}
             onChange={(val) => {
               setPage(1);
@@ -129,16 +129,28 @@ const HomePage: React.FC = () => {
         {data?.data.map((product) => (
           <Col xs={24} sm={12} md={8} lg={6} key={product.id}>
             <Card
+              className="!border-none card-style"
               hoverable
               onClick={() => navigate(`/products/${product.id}`)}
               cover={
-                <img
-                  alt={product.name}
-                  src={product.cover_image || "https://via.placeholder.com/300"}
-                />
+                <div className="border-[1px] border-[#E1DFE1] rounded-lg border-b-0 ">
+                  <img
+                    alt={product.name}
+                    src={
+                      product.cover_image || "https://via.placeholder.com/300"
+                    }
+                    className="w-full h-auto rounded-lg "
+                  />
+                </div>
               }
             >
-              <Meta title={product.name} description={`$${product.price}`} />
+              {/* <Meta title={product.name} description={`$${product.price}`} /> */}
+              <div className="pt-3 pb-3 pl-0.5">
+                <h1 className="text-lg font-medium text-[#10151F]">
+                  {product.name}
+                </h1>
+                <p className="text-lg font-medium text-[#10151F]">{`$${product.price}`}</p>
+              </div>
             </Card>
           </Col>
         ))}
@@ -146,6 +158,7 @@ const HomePage: React.FC = () => {
 
       <div className="flex justify-center mt-8">
         <Pagination
+          className=""
           current={data?.meta.current_page}
           total={data?.meta.total}
           pageSize={10}
