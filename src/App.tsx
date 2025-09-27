@@ -17,10 +17,8 @@ function App() {
     <Suspense fallback={<Spin />}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* redirect / → /products */}
           <Route index element={<Navigate to="products" replace />} />
 
-          {/* products route */}
           <Route path="products" element={<LazyHomePage />} />
           <Route path="products/:id" element={<LazyProductDetailPage />} />
           <Route path="checkout" element={<LazyCheckoutPage />} />

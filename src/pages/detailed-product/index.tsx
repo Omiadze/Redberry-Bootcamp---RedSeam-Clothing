@@ -13,6 +13,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "./query";
 import { useAddToCart } from "../../react-query/mutation";
 import ButtonCart from "../../assets/buttonCart.svg";
+import { useAuthContext } from "../../context/auth/hooks";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -45,6 +46,8 @@ const ProductDetailPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+  const { user } = useAuthContext();
+
   const addToCartMutation = useAddToCart();
 
   // Fetch product data
@@ -72,12 +75,19 @@ const ProductDetailPage: React.FC = () => {
   if (!product) return <div>Product not found</div>;
 
   const handleAddToCart = () => {
+    if (!user) {
+      // Redirect to login page
+      navigate("/login");
+      return;
+    }
+
     console.log("Added to cart:", {
       productId: id,
       color: selectedColor,
       size: selectedSize,
       quantity,
     });
+
     const body = { color: selectedColor, size: selectedSize, quantity };
     const productId = Number(id);
     addToCartMutation.mutate({ productId, body });
