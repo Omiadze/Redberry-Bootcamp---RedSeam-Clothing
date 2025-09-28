@@ -89,12 +89,12 @@
 }
 
 
-/* Global CSS */
+
 .ant-spin-dot i {
-  background-color: #FF4000 !important; /* orange */
+  background-color: #FF4000 !important; 
 }
 
-/* This will style placeholder of ALL ant inputs (including Input.Password) */
+
 .custom-placeholder .ant-input::placeholder {
   color: #3E424A !important;
   opacity: 1 !important;

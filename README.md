@@ -1,69 +1,93 @@
-# React + TypeScript + Vite
+# 👗 Clothing E-Commerce Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-green?logo=tailwind-css)
+![Ant Design](https://img.shields.io/badge/Ant%20Design-4.0-blueviolet)
+![React Query](https://img.shields.io/badge/React%20Query-4.0-orange)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Project Overview
 
-## Expanding the ESLint configuration
+This is a **clothing e-commerce website** where users can browse and purchase clothing items.  
+The project is built with **React**, **TailwindCSS**, and **Ant Design**, and follows the **Figma design**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠 Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **📝 Registration & Login** – Users can create an account and log in.
+- **📦 Product List Page** – Paginated product display with filtering and sorting.
+- **🖼 Product Details Page** – View product image, price, color, size, and description. Add products to cart.
+- **🛒 Cart Sidebar** – Shows products added to the cart in a sidebar panel.
+- **💳 Checkout Page** – Users fill a form to complete the purchase.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🖼 Screenshots
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Log in
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+![Log In](public/screenshots/login.png)
+
+### Register
+
+![Register](public/screenshots/register.png)
+
+### Home / Product List
+
+![Product List](public/screenshots/home-page.png)
+
+### Product Details
+
+![Product Details](public/screenshots/product-details.png)
+
+### Cart Sidebar
+
+![Cart Sidebar](public/screenshots/cart-sidebar.png)
+
+### Checkout
+
+![Checkout Form](public/screenshots/checkout.png)
+
+---
+
+## ⚡ Technologies Used
+
+- **React** – Frontend library
+- **TailwindCSS** – Styling framework
+- **Ant Design** – UI components
+- **React Hook Form & Zod** – Form handling and validation
+- **Axios** – HTTP requests
+- **React Query** – Data fetching & caching
+- **Figma** – Design reference
+- **Other React tools**
+
+---
+
+## ⚙️ Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Omiadze/Redberry-Bootcamp---RedSeam-Clothing.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd Redberry-Bootcamp---RedSeam-Clothing
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+# Live Site
+
+Access the live application at [RedSeam](https://redseam1.netlify.app/products).
+
+# Author
+
+Hi, my name is Teo and I am a front-end developer.
