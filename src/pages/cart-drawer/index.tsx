@@ -11,14 +11,10 @@ type CartDrawerProps = {
 };
 
 const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
-  const { data: cartItems, isLoading, isError } = useCart();
+  const { data: cartItems, isError } = useCart();
   const navigate = useNavigate();
-  console.log(cartItems, "cart");
-
-  if (isLoading) return <p>Loading cart...</p>;
 
   const handleCheckout = () => {
-    console.log("Going to checkout...");
     navigate("checkout");
   };
 

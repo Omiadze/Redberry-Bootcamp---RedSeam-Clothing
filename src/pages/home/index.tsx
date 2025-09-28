@@ -14,6 +14,7 @@ import { DownOutlined } from "@ant-design/icons";
 import { useProducts } from "./react-query/query";
 import FilterSvg from "../../assets/filter.svg";
 import { useNavigate } from "react-router-dom";
+import LittleX from "../../assets/little-x.svg";
 
 const sortOptions = [
   { label: "New products first", value: "-created_at" },
@@ -27,6 +28,7 @@ const HomePage: React.FC = () => {
   const [priceFrom, setPriceFrom] = useState<number | undefined>(undefined);
   const [priceTo, setPriceTo] = useState<number | undefined>(undefined);
   const navigate = useNavigate();
+  const [showPrice, setShowPrice] = useState(false);
 
   const { data, isLoading } = useProducts({
     page,
@@ -48,7 +50,7 @@ const HomePage: React.FC = () => {
   }
 
   const filterContent = (
-    <div className="p-4 w-96 h-40 bg-white border-[1px] border-[#E1DFE1] rounded-lg">
+    <div className="p-4 w-96  bg-white border-[1px] border-[#E1DFE1] rounded-lg">
       <h4 className="font-semibold mb-3">Select price</h4>
       <Form
         layout="vertical"
@@ -56,19 +58,20 @@ const HomePage: React.FC = () => {
           setPage(1);
           setPriceFrom(values.priceFrom);
           setPriceTo(values.priceTo);
+          setShowPrice(true);
         }}
       >
         <div className="flex gap-2 mb-3">
-          <Form.Item name="priceFrom" className="flex-1 !w-44">
-            <InputNumber placeholder="From" min={0} className="!w-44" />
+          <Form.Item name="priceFrom" className="flex-1 !w-44 !mb-0">
+            <InputNumber placeholder="From" min={0} className="!w-44 !h-10" />
           </Form.Item>
-          <Form.Item name="priceTo" className="flex-1 !w-44">
-            <InputNumber placeholder="To" min={0} className="!w-44" />
+          <Form.Item name="priceTo" className="flex-1 !w-44 !mb-0">
+            <InputNumber placeholder="To" min={0} className="!w-44 !h-10" />
           </Form.Item>
         </div>
         <div className="flex justify-end">
           <Button
-            className="!w-32 !bg-primary !text-white"
+            className="!w-32 !h-10 !bg-primary !text-white !rounded-[10px]"
             type="primary"
             htmlType="submit"
             block
@@ -146,35 +149,60 @@ const HomePage: React.FC = () => {
           </Dropdown>
         </div>
       </div>
+      {showPrice ? (
+        <div className="flex border-[1px] border-[#E1DFE1] gap-2 w-40 rounded-[50px] py-2 justify-center mb-3">
+          {" "}
+          <p className="text-dark-blue text-sm font-normal">
+            Price: {priceFrom != undefined ? priceFrom : 0}-
+            {priceTo != undefined ? priceTo : 0}
+          </p>{" "}
+          <img
+            onClick={() => {
+              setShowPrice(false);
+              setPriceFrom(undefined);
+              setPriceTo(undefined);
+            }}
+            src={LittleX}
+            alt=""
+            className="hover:cursor-pointer"
+          />
+        </div>
+      ) : null}
 
       <Row gutter={[16, 16]}>
-        {data?.data.map((product) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={product.id}>
-            <Card
-              className="!border-none card-style"
-              hoverable
-              onClick={() => navigate(`/products/${product.id}`)}
-              cover={
-                <div className="border-[1px] border-[#E1DFE1] rounded-lg border-b-0">
-                  <img
-                    alt={product.name}
-                    src={
-                      product.cover_image || "https://via.placeholder.com/300"
-                    }
-                    className="w-full h-auto rounded-lg"
-                  />
+        {data?.data && data.data.length > 0 ? (
+          data.data.map((product) => (
+            <Col xs={24} sm={12} md={8} lg={6} key={product.id}>
+              <Card
+                className="!border-none card-style"
+                hoverable
+                onClick={() => navigate(`/products/${product.id}`)}
+                cover={
+                  <div className="border-[1px] border-[#E1DFE1] rounded-lg border-b-0">
+                    <img
+                      alt={product.name}
+                      src={
+                        product.cover_image || "https://via.placeholder.com/300"
+                      }
+                      className="w-full h-auto rounded-lg"
+                    />
+                  </div>
+                }
+              >
+                <div className="pt-3 pb-3 pl-0.5">
+                  <h1 className="text-lg font-medium text-[#10151F]">
+                    {product.name}
+                  </h1>
+                  <p className="text-lg font-medium text-[#10151F]">{`$${product.price}`}</p>
                 </div>
-              }
-            >
-              <div className="pt-3 pb-3 pl-0.5">
-                <h1 className="text-lg font-medium text-[#10151F]">
-                  {product.name}
-                </h1>
-                <p className="text-lg font-medium text-[#10151F]">{`$${product.price}`}</p>
-              </div>
-            </Card>
-          </Col>
-        ))}
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <div className="w-full text-center text-gray-500 text-lg py-10">
+            Products not found
+          </div>
+        )}
       </Row>
 
       <div className="flex justify-center mt-8">

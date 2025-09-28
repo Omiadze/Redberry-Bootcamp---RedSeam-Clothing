@@ -27,10 +27,14 @@ const LoginForm: React.FC = () => {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<LoginDataTypes>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues,
   });
+
+  const emailValue = watch("email");
+  const passwordValue = watch("password");
 
   const {
     mutate: handleLogin,
@@ -72,17 +76,25 @@ const LoginForm: React.FC = () => {
           validateStatus={errors.email ? "error" : ""}
           help={errors.email?.message}
         >
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <Input
-                placeholder="Email *"
-                {...field}
-                className="rounded-lg h-10 !text-sm !font-normal"
-              />
+          <div className="relative">
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  placeholder="Email"
+                  {...field}
+                  className="custom-placeholder rounded-lg h-10 !text-sm !font-normal placeholder:!text-[#3E424A] placeholder:!opacity-100 pl-6"
+                />
+              )}
+            />
+
+            {!emailValue && (
+              <span className="absolute left-[52px] top-1/2 -translate-y-1/2 text-red-500">
+                *
+              </span>
             )}
-          />
+          </div>
         </Form.Item>
 
         {/* PASSWORD */}
@@ -90,17 +102,24 @@ const LoginForm: React.FC = () => {
           validateStatus={errors.password ? "error" : ""}
           help={errors.password?.message}
         >
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <Input.Password
-                placeholder="Password *"
-                {...field}
-                className="rounded-lg h-10 !text-sm !font-normal"
-              />
+          <div className="relative">
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <Input.Password
+                  placeholder="Password"
+                  {...field}
+                  className="custom-placeholder rounded-lg h-10 !text-sm !font-normal placeholder:!text-[#3E424A] placeholder:!opacity-100 pl-6"
+                />
+              )}
+            />
+            {!passwordValue && (
+              <span className="absolute left-[82px] top-1/2 -translate-y-1/2 text-red-500">
+                *
+              </span>
             )}
-          />
+          </div>
         </Form.Item>
 
         <Form.Item>
