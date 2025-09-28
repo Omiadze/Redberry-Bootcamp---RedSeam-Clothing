@@ -1,9 +1,9 @@
-# 👗 Clothing E-Commerce Web Application
+# 👗 RedSeam Clothing
 
-![React](https://img.shields.io/badge/React-17.0.2-blue?logo=react)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-green?logo=tailwind-css)
-![Ant Design](https://img.shields.io/badge/Ant%20Design-4.0-blueviolet)
-![React Query](https://img.shields.io/badge/React%20Query-4.0-orange)
+![React](https://img.shields.io/badge/React-19.1.1-blue?logo=react)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.13-green?logo=tailwind-css)
+![Ant Design](https://img.shields.io/badge/Ant%20Design-6.0.0-alpha.3-blueviolet)
+![React Query](https://img.shields.io/badge/React%20Query-latest-orange)
 
 ---
 
@@ -61,7 +61,7 @@ The project is built with **React**, **TailwindCSS**, and **Ant Design**, and fo
 - **Axios** – HTTP requests
 - **React Query** – Data fetching & caching
 - **Figma** – Design reference
-- **Other React tools**
+- **Some Other React tools**
 
 ---
 
