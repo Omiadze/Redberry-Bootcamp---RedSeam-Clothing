@@ -101,7 +101,7 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="w-[555px]">
       <div className="flex items-center gap-4 mb-8">
         <div className="w-20 h-20 rounded-full overflow-hidden border-[1px] border-[#E1DFE1] flex items-center justify-center">
           {avatarPreview ? (

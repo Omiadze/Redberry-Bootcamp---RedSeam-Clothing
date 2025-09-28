@@ -33,12 +33,11 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
     defaultValues,
   });
 
-  // Prefill form with user email if available
   useEffect(() => {
     if (user?.email) {
       reset({
         ...defaultValues,
-        email: user.email, // prepopulate email
+        email: user.email,
       });
     }
   }, [user?.email, reset]);
@@ -64,7 +63,7 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               control={control}
               render={({ field }) => (
                 <Input
-                  className="!text-sm !font-normal"
+                  className="placeholder:!text-[#3E424A] placeholder:!opacity-100 !text-sm !font-normal"
                   placeholder="Name"
                   size="large"
                   {...field}
@@ -82,7 +81,7 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               control={control}
               render={({ field }) => (
                 <Input
-                  className="!text-sm !font-normal"
+                  className="placeholder:!text-[#3E424A] placeholder:!opacity-100 !text-sm !font-normal"
                   placeholder="Surname"
                   size="large"
                   {...field}
@@ -100,7 +99,7 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
             control={control}
             render={({ field }) => (
               <Input
-                className="!text-sm !font-normal"
+                className="placeholder:!text-[#3E424A] placeholder:!opacity-100 !text-sm !font-normal"
                 prefix={<MailOutlined />}
                 placeholder="Email"
                 size="large"
@@ -120,7 +119,7 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               control={control}
               render={({ field }) => (
                 <Input
-                  className="!text-sm !font-normal"
+                  className=" placeholder:!text-[#3E424A] placeholder:!opacity-100 !text-sm !font-normal"
                   placeholder="Address"
                   size="large"
                   {...field}
@@ -138,7 +137,7 @@ const CheckoutForm = forwardRef(({ onSubmit }: CheckoutFormProps, ref) => {
               control={control}
               render={({ field }) => (
                 <Input
-                  className="!text-sm !font-normal"
+                  className="placeholder:!text-[#3E424A] placeholder:!opacity-100 !text-sm !font-normal"
                   placeholder="Zip code"
                   size="large"
                   {...field}

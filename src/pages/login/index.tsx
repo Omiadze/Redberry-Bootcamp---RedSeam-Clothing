@@ -7,10 +7,10 @@ const { Title } = Typography;
 
 const Login: React.FC = () => {
   return (
-    <div className="flex justify-between h-full sm:h-screen ">
+    <div className="flex gap-28 h-full ">
       <img src={RedSeamImg} alt="" />
       <div className="flex items-center justify-center mr-24">
-        <Card className="w-[370px] !border-none">
+        <Card className=" !border-none">
           <div className="mb-4 text-left">
             <Title className="!text-[42px] !font-semibold !text-dark-blue">
               Log in

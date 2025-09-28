@@ -18,7 +18,6 @@ import { useAuthContext } from "../../context/auth/hooks";
 const { Title, Text } = Typography;
 const { Option } = Select;
 
-// Color mapping for display colors
 const getColorHex = (colorName: string): string => {
   const colorMap: { [key: string]: string } = {
     Yellow: "#FDE047",
@@ -50,10 +49,8 @@ const ProductDetailPage: React.FC = () => {
 
   const addToCartMutation = useAddToCart();
 
-  // Fetch product data
   const { data: product, isLoading } = useProduct(Number(id));
 
-  // Set default selections safely
   useEffect(() => {
     if (product?.available_colors?.length) {
       setSelectedColor(product.available_colors[0]);
@@ -76,7 +73,6 @@ const ProductDetailPage: React.FC = () => {
 
   const handleAddToCart = () => {
     if (!user) {
-      // Redirect to login page
       navigate("/login");
       return;
     }
@@ -93,14 +89,12 @@ const ProductDetailPage: React.FC = () => {
     addToCartMutation.mutate({ productId, body });
   };
 
-  // Handle color click
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
     const index = product.available_colors.indexOf(color);
     if (index !== -1) setSelectedImageIndex(index);
   };
 
-  // Handle image click
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
     const color = product.available_colors[index];
@@ -164,7 +158,6 @@ const ProductDetailPage: React.FC = () => {
         {/* Right side - Product details */}
         <Col xs={24} md={12}>
           <div className="space-y-6">
-            {/* Product title and price */}
             <div>
               <Title level={2} className="!mb-2 !text-3xl !font-semibold">
                 {product.name}

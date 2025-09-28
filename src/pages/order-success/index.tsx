@@ -6,7 +6,7 @@ import MarkX from "../../assets/x-mark.svg";
 const OrderSuccessPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="">
+    <div className="w-full h-full">
       <div
         onClick={() => navigate("/")}
         className="flex justify-end w-full pt-10 pr-10 hover:cursor-pointer"

@@ -17,7 +17,7 @@ export type UserType = {
 
 type AuthContextType = {
   user: UserType | null;
-  setUser: (user: UserType | null) => void; // expose setter
+  setUser: (user: UserType | null) => void;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(

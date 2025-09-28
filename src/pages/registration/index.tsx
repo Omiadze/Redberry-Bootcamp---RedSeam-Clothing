@@ -2,12 +2,10 @@ import React from "react";
 import { Card, Typography } from "antd";
 import RegisterForm from "./components/register-form";
 import RedSeamImg from "../../assets/redseamImg.png";
-
 const { Title } = Typography;
-
 const Register: React.FC = () => {
   return (
-    <div className="flex justify-between h-full sm:h-screen">
+    <div className="flex gap-28 h-full ">
       <img src={RedSeamImg} alt="" />
       <div className="flex items-center justify-center mr-24">
         <Card className="w-[370px] !border-none">
@@ -22,5 +20,4 @@ const Register: React.FC = () => {
     </div>
   );
 };
-
 export default Register;

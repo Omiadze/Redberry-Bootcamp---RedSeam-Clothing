@@ -56,7 +56,7 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="w-[550px]">
       <Form
         onFinish={handleSubmit(onSubmit)}
         layout="vertical"

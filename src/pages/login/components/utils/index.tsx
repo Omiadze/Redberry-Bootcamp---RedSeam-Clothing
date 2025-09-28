@@ -7,6 +7,6 @@ export const useAfterLogin = () => {
   return ({ token, user }: { token?: string; user: UserType }) => {
     localStorage.setItem("accessToken", token || "");
     localStorage.setItem("user", JSON.stringify(user));
-    setUser(user); // update context -> header reacts automatically
+    setUser(user);
   };
 };

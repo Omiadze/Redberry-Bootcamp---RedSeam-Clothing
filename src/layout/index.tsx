@@ -10,11 +10,11 @@ const Layout: React.FC = () => {
   const isCartOpen = searchParams.get("cart") === "open";
 
   const openCart = () => {
-    setSearchParams({ cart: "open" }); // adds ?cart=open to URL
+    setSearchParams({ cart: "open" });
   };
 
   const closeCart = () => {
-    searchParams.delete("cart"); // remove param
+    searchParams.delete("cart");
     setSearchParams(searchParams);
   };
   return (
