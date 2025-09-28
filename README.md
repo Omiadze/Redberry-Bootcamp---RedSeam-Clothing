@@ -2,7 +2,7 @@
 
 ![React](https://img.shields.io/badge/React-19.1.1-blue?logo=react)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.13-green?logo=tailwind-css)
-![Ant Design](https://img.shields.io/badge/Ant%20Design-6.0.0-alpha.3-blueviolet)
+![Ant Design](https://img.shields.io/badge/Ant%20Design-6.0.0-alpha.3-blueviolet?logo=https://upload.wikimedia.org/wikipedia/commons/3/34/Ant_Design_logo.svg)
 ![React Query](https://img.shields.io/badge/React%20Query-latest-orange)
 
 ---
